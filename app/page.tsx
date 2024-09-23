@@ -1,8 +1,8 @@
-import HeroCarousel from "@/components/HeroCarousel"
-import Searchbar from "@/components/Searchbar"
-import Image from "next/image"
-import { getAllProducts } from "@/lib/actions"
-import ProductCard from "@/components/ProductCard"
+import HeroCarousel from "@/components/HeroCarousel";
+import Searchbar from "@/components/Searchbar";
+import Image from "next/image";
+import { getAllProducts } from "@/lib/actions";
+import ProductCard from "@/components/ProductCard";
 
 const Home = async () => {
   const allProducts = await getAllProducts();
@@ -11,10 +11,10 @@ const Home = async () => {
     <>
       <section className="px-6 md:px-20 py-24">
         <div className="flex max-xl:flex-col gap-16">
-          <div className="flex flex-col justify-center"> 
+          <div className="flex flex-col justify-center">
             <p className="small-text">
               Smart Shopping Starts Here:
-              <Image 
+              <Image
                 src="/assets/icons/arrow-right.svg"
                 alt="arrow-right"
                 width={16}
@@ -38,17 +38,18 @@ const Home = async () => {
         </div>
       </section>
 
-       <section className="trending-section">
-        <h2 className="section-text">Histroy</h2>
+      <section className="trending-section">
+        <h2 className="section-text">History</h2>
 
-        <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {allProducts?.map((product) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-16">
+          {/* Reverse the products to show the latest on top */}
+          {allProducts?.slice().reverse().map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
-      </section> 
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

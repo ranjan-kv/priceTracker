@@ -24,7 +24,7 @@ const Navbar = () => {
           </p>
         </Link>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 cursor-pointer">
           {navIcons.map((icon) => (
             <Image 
               key={icon.alt}
