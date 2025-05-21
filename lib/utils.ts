@@ -14,16 +14,16 @@ export function extractPrice(...elements: any) {
   for (const element of elements) {
     const priceText = element.text().trim();
 
-    if(priceText) {
+    if (priceText) {
+console.log("Extracted Price:", extractPrice);      // Remove non-numeric characters except for the decimal point
       const cleanPrice = priceText.replace(/[^\d.]/g, '');
 
-      let firstPrice; 
+      // Match either a decimal number or an integer
+      const priceMatch = cleanPrice.match(/\d+(\.\d{2})?/);
 
-      if (cleanPrice) {
-        firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0];
-      } 
-
-      return firstPrice || cleanPrice;
+      if (priceMatch) {
+        return priceMatch[0];
+      }
     }
   }
 
@@ -61,15 +61,21 @@ export function extractDescription($: any) {
 }
 
 export function getHighestPrice(priceList: PriceHistoryItem[]) {
-  let highestPrice = priceList[0];
+  console.log("Price List:", priceList); // Log the price list to verify data
 
-  for (let i = 0; i < priceList.length; i++) {
-    if (priceList[i].price > highestPrice.price) {
-      highestPrice = priceList[i];
+  if (priceList.length === 0) {
+    throw new Error("Price list is empty");
+  }
+
+  let highestPrice = priceList[0].price;
+
+  for (let i = 1; i < priceList.length; i++) {
+    if (priceList[i].price > highestPrice) {
+      highestPrice = priceList[i].price;
     }
   }
 
-  return highestPrice.price;
+  return highestPrice;
 }
 
 export function getLowestPrice(priceList: PriceHistoryItem[]) {
